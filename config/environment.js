@@ -52,9 +52,59 @@ class EnvironmentManager {
                 user: process.env.DB_USER || 'root',  // 数据库用户名（默认 root）
                 password: process.env.DB_PASSWORD || 'root',  // 数据库密码（默认 root）
                 dialect: 'mysql',  // 数据库类型（固定为 mysql）
+                pool: this.getDatabasePool(),
+                logging: this.env === 'development' ? console.log : false,
+                define: {
+                    underscored: true,
+                    underscoredAll: true,
+                },
             },
             // 可扩展其他配置（如 JWT 密钥、API 前缀等）
+
+            // 日志配置
+            logging: {
+                level: process.env.LOG_LEVEL || 'info',
+                filePath: process.env.LOG_FILE_PATH || './logs',
+            },
+            // redis 配置
+            redis: {
+                host: process.env.REDIS_HOST || 'localhost',
+                port: parseInt(process.env.REDIS_PORT) || 6379,
+                password: process.env.REDIS_PASSWORD || '',
+                db: parseInt(process.env.REDIS_DB) || 1,
+                url: process.env.REDIS_PASSWORD
+                    ? `redis://:${process.env.REDIS_PASSWORD}@${process.env.REDIS_HOST}:${process.env.REDIS_PORT}/${process.env.REDIS_DB}`
+                    : `redis://${process.env.REDIS_HOST}:${process.env.REDIS_PORT}/${process.env.REDIS_DB}`,
+
+            },
+            // CORS配置
+            cors: {
+                allowedOrigins: process.env.ALLOWED_ORIGINS
+                    ? process.env.ALLOWED_ORIGINS.split(',').map(origin => origin.trim())
+                    : ['http://localhost:3000'],
+            },
         };
+    }
+
+    /**
+     * 获取数据库连接池配置
+     */
+    getDatabasePool() {
+        const basePool = {
+            acquire: 30000,
+            idle: 10000,
+        };
+
+        switch (this.env) {
+            case 'development':
+                return { ...basePool, max: 10, min: 0 };
+            case 'test':
+                return { ...basePool, max: 5, min: 0 };
+            case 'production':
+                return { ...basePool, max: 20, min: 5 };
+            default:
+                return { ...basePool, max: 10, min: 0 };
+        }
     }
 
 
