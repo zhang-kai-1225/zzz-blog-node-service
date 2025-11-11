@@ -15,9 +15,9 @@ db.User = require('./user.model.js')(sequelize, Sequelize);
 
 
 // 定义模型之间的关系
-db.User.hasMany(db.Post, {
-    foreignKey: 'userId',
-    as: 'posts',
-})
+// db.User.hasMany(db.Post, {
+//     foreignKey: 'userId',
+//     as: 'posts',
+// })
 
 module.exports = db;

@@ -11,6 +11,7 @@ class UserService {
      * @returns {Promise<Object|null>} - 返回查询到的用户实例（如果存在），否则返回 null
      */
     async findByUsername(username) {
+        console.log('username', username);
         return await User.findOne({
             where: {
                 username,
@@ -273,6 +274,37 @@ class UserService {
             console.error('初始化用户成就失败:', error);
             // throw error;
         }
+    }
+    /** 
+     * 创建用户 （管理员）
+     * @param {Object} userData - 用户数据
+     * @returns {Promise<Object>} - 创建的用户
+     */
+    async createUser(userData) {
+        const { username, password, email, role = 'user', status = 'active' } = userData;
+        // 检查用户名是否存在
+        const existingUsername = await this.findByUsername(username);
+        if (existingUsername) {
+            throw new Error('用户名已存在');
+        }
+        // 检查邮箱是否存在
+        const existingEmail = await this.findByEmail(email);
+        if (existingEmail) {
+            throw new Error('邮箱已存在');
+        }
+        // 加密密码
+        const hashedPassword = await bcrypt.hash(password);
+        // 创建用户
+        const user = await User.create({
+            username,
+            password: hashedPassword,
+            email,
+            role,
+            status,
+        });
+        // 返回用户信息（不包含密码）
+        const { password: _, ...userInfo } = user.toJSON();
+        return userInfo;
     }
 
 }
