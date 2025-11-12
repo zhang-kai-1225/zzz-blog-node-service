@@ -10,7 +10,6 @@ const { asyncHandler } = require('../utils/response');
  */
 exports.login = asyncHandler(async (req, res) => {
     const { username, password } = req.body;
-
     // 验证请求数据
     if (!username || !password) {
       return res.apiValidationError(

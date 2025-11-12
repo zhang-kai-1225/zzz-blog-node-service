@@ -1,4 +1,3 @@
-
 const swaggerJsdoc = require('swagger-jsdoc');
 const environment = require('./environment');
 
@@ -8,7 +7,7 @@ const config = environment.get();
 const options = {
     definition: {
         openapi: '3.0.0',
-        info: { // 文档的基本信息， 显示在文档首页
+        info: {
             title: '博客系统 API 文档',
             version: '1.0.0',
             description: '基于 Node.js + Express + MySQL + Redis 的博客系统后端 API',
@@ -21,7 +20,7 @@ const options = {
                 url: 'https://opensource.org/licenses/MIT',
             },
         },
-        servers: [ //接口所在的服务器地址
+        servers: [
             {
                 url: `http://localhost:${config.port}`,
                 description: '开发环境服务器',
@@ -36,7 +35,7 @@ const options = {
             },
         ],
         components: {
-            securitySchemes: { // 接口安全认证方式
+            securitySchemes: {
                 bearerAuth: {
                     type: 'http',
                     scheme: 'bearer',
@@ -44,7 +43,7 @@ const options = {
                     description: 'JWT 认证令牌',
                 },
             },
-            schemas: { // 数据模型定义
+            schemas: {
                 User: {
                     type: 'object',
                     properties: {
@@ -147,7 +146,7 @@ const options = {
                         },
                     },
                 },
-                Error: {
+                ErrorResponse: {
                     type: 'object',
                     properties: {
                         message: { type: 'string', description: '错误信息' },
@@ -165,7 +164,7 @@ const options = {
                         },
                     },
                 },
-                Success: {
+                SuccessResponse: {
                     type: 'object',
                     properties: {
                         success: { type: 'boolean', description: '操作是否成功' },

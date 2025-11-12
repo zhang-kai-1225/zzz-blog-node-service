@@ -7,7 +7,7 @@ const db = {};
 db.Sequelize = Sequelize; // 存储 Sequelize 类（方便使用其静态方法，如数据类型）
 db.sequelize = sequelize; // 存储数据库连接实例（方便执行同步、事务等操作）
 
-// 导入用户模型，传入 sequelize 实例和 Sequelize 类进行初始化
+// 导入用户模型，传入 sequelize 实例和 Sequelize 类进行初始化创建User模型实例
 db.User = require('./user.model.js')(sequelize, Sequelize);
 
 

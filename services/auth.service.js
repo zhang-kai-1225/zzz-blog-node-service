@@ -38,7 +38,7 @@ class AuthService {
             throw new Error('用户已被禁用');
         }
         // 更新最后登录时间
-        await userService.updateLastLogin(user.id);
+        await userService.updateLastLoginTime(user.id);
 
         // 生成令牌
         const token = this.generateToken(user);
@@ -75,6 +75,7 @@ class AuthService {
         }
         // 创建新用户
         const user = await userService.createUser(userData);
+
         // 生成令牌
         const token = this.generateToken(user);
         // 存储令牌到Redis

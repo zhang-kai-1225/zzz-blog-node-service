@@ -85,7 +85,8 @@ const setupMiddleware = () => {
 // 路由配置
 const setupRoutes = () => {
     // API 路由
-    app.use('api', routes);
+    app.use('/api', routes);
+
     // Swagger API 文档
     app.use(
         '/api-docs',

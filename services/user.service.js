@@ -293,7 +293,7 @@ class UserService {
             throw new Error('邮箱已存在');
         }
         // 加密密码
-        const hashedPassword = await bcrypt.hash(password);
+        const hashedPassword = await bcrypt.hashSync(password, 12);
         // 创建用户
         const user = await User.create({
             username,

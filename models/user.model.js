@@ -31,7 +31,7 @@ module.exports = (sequelize, Sequelize) => {
         },
         fullName: {
             type: DataTypes.STRING(50),
-            allowNull: false,
+            allowNull: true,
             field: 'full_name',
         },
         avatar: {
