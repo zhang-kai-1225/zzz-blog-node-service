@@ -9,6 +9,8 @@ db.sequelize = sequelize; // 存储数据库连接实例（方便执行同步、
 
 // 导入用户模型，传入 sequelize 实例和 Sequelize 类进行初始化创建User模型实例
 db.User = require('./user.model.js')(sequelize, Sequelize);
+db.Post = require('./post.model.js')(sequelize, Sequelize);
+db.Categroup = require('./categroup.model.js')(sequelize, Sequelize);
 
 
 
@@ -18,6 +20,7 @@ db.User = require('./user.model.js')(sequelize, Sequelize);
 // db.User.hasMany(db.Post, {
 //     foreignKey: 'userId',
 //     as: 'posts',
+
 // })
 
 module.exports = db;

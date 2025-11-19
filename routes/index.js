@@ -11,7 +11,7 @@ const router = express.Router();
 // 导入模块化路由
 const authRoutes = require('./auth');
 // const userRoutes = require('./users');
-// const postRoutes = require('./posts');
+const postRoutes = require('./posts');
 // const commentRoutes = require('./comments');
 // const tagRoutes = require('./tags');
 // const categoryRoutes = require('./categories');
@@ -62,7 +62,7 @@ router.get('/health', (req, res) => {
 // 注册模块化路由
 router.use('/auth', authRoutes);
 // router.use('/users', userRoutes); // 统一用户路由
-// router.use('/posts', postRoutes);
+router.use('/posts', postRoutes);
 // router.use('/comments', commentRoutes);
 // router.use('/tags', tagRoutes);
 // router.use('/categories', categoryRoutes);
